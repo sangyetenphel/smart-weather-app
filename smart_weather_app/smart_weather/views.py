@@ -46,16 +46,18 @@ def weather(request, city_id):
 
     }
 
+    print(temperature)
+
     # What clothes to wear based on the temperature
-    if temperature < 30:
+    if temperature < 40:
         outfit = "30"
-    elif temperature < 40:
-        outfit = "40"
     elif temperature < 50:
-        outfit = "50"
+        outfit = "40"
     elif temperature < 60:
-        outfit = "60"
+        outfit = "50"
     elif temperature < 70:
+        outfit = "60"
+    elif temperature < 80:
         outfit = "70"
     elif temperature > 80 :
         outfit = "80"
