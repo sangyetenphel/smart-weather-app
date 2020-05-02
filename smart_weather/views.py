@@ -17,7 +17,7 @@ def weather(request, city_id):
     temperature = r['main']['temp']
     weather = r['weather'][0]['main']
     unix_time = int(r['dt'])
-    day_time = datetime.utcfromtimestamp(unix_time).strftime('%a, %I:%M %p')
+    day_time = datetime.fromtimestamp(unix_time).strftime('%a, %I:%M %p')
     
     # Generate different wallpaper for different weather
     if weather == 'Clear':
@@ -45,8 +45,6 @@ def weather(request, city_id):
         'day_time': day_time
 
     }
-
-    print(temperature)
 
     # What clothes to wear based on the temperature
     if temperature < 40:
