@@ -6,6 +6,8 @@ First time user will be asked to enter a city.
 Weather data is fetch from OpenWeather API https://openweathermap.org/
 Display images based on the current weather conditions.
 
+App demonstration video: https://youtu.be/MBAwvH21G6M
+
 
 * smart_weather_app
 Folder which contains all the apps
