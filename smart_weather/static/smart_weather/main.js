@@ -1,3 +1,9 @@
+$(document).ready(function(){
+    $("#exampleModal").on('shown.bs.modal', function(){
+        $(this).find('#search').focus();
+    });
+});
+
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 let cities;

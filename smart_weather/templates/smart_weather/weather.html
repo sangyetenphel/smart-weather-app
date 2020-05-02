@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'smart_weather/styles.css' %}">
-
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <title>Smart Weather</title>
   </head>
   <body style="background-image: url('../static/smart_weather/images/{{ weather }}.jpg');">
@@ -39,7 +39,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <input type="text" id="search" class="form-control" placeholder="Input the city name" autofocus>
+                  <input type="text" id="search" class="form-control" placeholder="Input the city name">
               </div>
               <div id="match-list"></div>
             </div>
