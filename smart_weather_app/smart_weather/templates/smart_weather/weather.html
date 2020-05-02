@@ -1,0 +1,83 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'smart_weather/styles.css' %}">
+
+    <title>Smart Weather</title>
+  </head>
+  <body style="background-image: url('../static/smart_weather/images/{{ weather }}.jpg');">
+    
+    <div class="content">
+      <div class="top">
+        <p id="city-name">{{ city_weather.city }}</p>
+        {{ city_weather.day_time }}
+
+        <!-- Button trigger modal -->
+        <button type="button" data-toggle="modal" data-target="#exampleModal" class="add-button">
+          <i class="fa fa-plus"></i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Choose a city</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <input type="text" id="search" class="form-control" placeholder="Input the city name">
+              </div>
+              <div id="match-list"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mid">
+        <div class="mid-left">
+          <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="">
+          {{ city_weather.description }}  
+          <p class="temp">{{ city_weather.temperature }}° </p>
+        </div>
+        <div class="mid-right">
+          {{ city_weather.max }}° F<hr>{{ city_weather.min }}° F
+        </div>  
+      </div>
+
+      <div class="outfit">
+        <!-- <div class="img" style="background-image:url('../static/smart_weather/images/{{ outfit }}.jpg');"></div>
+        <div class="img" style="background-image:url('../static/smart_weather/images/w40.jpg');"></div> -->
+        <div class="men">
+          <img src="../static/smart_weather/images/men{{ outfit }}.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="women">
+          <img src="../static/smart_weather/images/women{{ outfit }}.jpg" alt="" class="img-fluid">
+        </div>
+      </div>  
+    </div>  
+
+
+
+    <!-- Optional JavaScript -->
+    <script src="{% static 'smart_weather/main.js' %}"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+body {  
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+}
+
+.content {
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+  ;
+
+    margin: 5% auto;
+    width: 50%;
+    padding: 10px;
+    color: whitesmoke;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-bottom: 50px;
+}
+
+.close {
+    color: white;
+} 
+
+.close:hover {
+    color: grey;
+}
+
+.modal-content {
+    background-color: rgba(49, 49, 49, 0.4);
+}
+
+
+.card-body {
+    background-color: rgba(49, 49, 49, 0.4);
+}
+
+.card-body a{
+    color: white;
+    text-decoration: none;
+}
+
+.card-body a:hover {
+    color: grey;
+}
+
+.top {
+    text-align: center;
+    position: relative;
+}
+
+.add-button { 
+    float: right;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: whitesmoke;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+#city-name {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    padding: 0;
+    margin: 0;
+}
+
+.temp {
+    font-size: 60px;
+}
+
+.mid {
+    position: relative;
+}
+
+.mid-right {
+    bottom: 0;
+    right: 10px;
+    position: absolute;
+}
+
+hr {
+    margin: 0;
+    border: 0.5px solid whitesmoke;
+}
+
+.cities {
+    width: 100%;
+}
+
+.outfit {
+    width: 100%;
+}
+
+.men {
+    border: 2px solid white;
+    border-radius: 20px 0px 5px 20px;
+    width: 45%;
+    float: left;
+    overflow: hidden;
+}
+
+.women {
+    border-radius: 0px 20px 20px 5px;
+    border: 2px solid white;
+    width: 45%;
+    float: right;
+    overflow: hidden;
+}
+
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .content {
+        margin-top: 10%;
+        width: 80%;
+    }
+
+    .top {
+        padding-bottom: 60px;
+    }
+
+    .mid {
+        margin-bottom: 100px;
+    }
+}
+  
+
+@media only screen and (max-width: 600px) {
+    .content {
+        margin-top: 20%;
+        width: 80%;
+    }
+
+    .top {
+        padding-bottom: 60px;
+    }
+
+    .mid {
+        margin-bottom: 100px;
+    }
+
+  }
