@@ -1,6 +1,7 @@
 import requests
 from django.shortcuts import render
 from datetime import datetime
+from timezonefinder import TimezoneFinder
 
 # Create your views here.
 def index(request):
@@ -16,9 +17,41 @@ def weather(request, city_id):
 
     temperature = r['main']['temp']
     weather = r['weather'][0]['main']
-    unix_time = int(r['dt'])
-    day_time = datetime.fromtimestamp(unix_time).strftime('%a, %I:%M %p')
+
+    lon = lat = r['coord']['lon']
+    lat = r['coord']['lat']
+
+    tf = TimezoneFinder()
+    latitude, longitude = lat, lon
+    time_zone = tf.timezone_at(lng=longitude, lat=latitude) # returns 'Europe/Berlin'
     
+    time_zone_url = 'http://worldtimeapi.org/api/timezone/{}'
+    new_r = requests.get(time_zone_url.format(time_zone)).json()
+    week_day = new_r['day_of_week']
+
+    if week_day == 0:
+        day = 'Sun'
+    elif week_day == 1:
+        day = 'Mon'
+    elif week_day == 2:
+        day = 'Tue'
+    elif week_day == 3:
+        day = 'Wed'
+    elif week_day == 4:
+        day = 'Thu'
+    elif week_day == 5:
+        day = 'Fri'
+    elif week_day == 6:
+        day = 'Sat'
+    else:
+        day = ''
+
+    date_time = new_r['datetime']
+    m_time = date_time[11:16]
+    time = datetime.strptime(m_time,"%H:%M").strftime("%I:%M %p")
+
+    day_time = day + ", " + time
+
     # Generate different wallpaper for different weather
     if weather == 'Clear':
         weather = 'clear'
@@ -42,7 +75,7 @@ def weather(request, city_id):
         'min': r['main']['temp_min'],
         'description': r['weather'][0]['description'],
         'icon': r['weather'][0]['icon'],
-        'day_time': day_time
+        'day_time': day_time                       
 
     }
 
