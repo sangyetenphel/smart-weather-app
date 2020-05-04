@@ -12,7 +12,6 @@ def weather(request, city_id):
 
     url = 'https://api.openweathermap.org/data/2.5/weather?id={}&units=imperial&appid=8650b978cd17f0a0eb65c73e957bf584'
 
-
     r = requests.get(url.format(city_id)).json()
 
     temperature = r['main']['temp']
@@ -24,33 +23,38 @@ def weather(request, city_id):
     tf = TimezoneFinder()
     latitude, longitude = lat, lon
     time_zone = tf.timezone_at(lng=longitude, lat=latitude) # returns 'Europe/Berlin'
-    
+
     time_zone_url = 'http://worldtimeapi.org/api/timezone/{}'
-    new_r = requests.get(time_zone_url.format(time_zone)).json()
-    week_day = new_r['day_of_week']
 
-    if week_day == 0:
-        day = 'Sun'
-    elif week_day == 1:
-        day = 'Mon'
-    elif week_day == 2:
-        day = 'Tue'
-    elif week_day == 3:
-        day = 'Wed'
-    elif week_day == 4:
-        day = 'Thu'
-    elif week_day == 5:
-        day = 'Fri'
-    elif week_day == 6:
-        day = 'Sat'
-    else:
-        day = ''
+    try:
+        new_r = requests.get(time_zone_url.format(time_zone)).json()
+        week_day = new_r['day_of_week']
 
-    date_time = new_r['datetime']
-    m_time = date_time[11:16]
-    time = datetime.strptime(m_time,"%H:%M").strftime("%I:%M %p")
+        if week_day == 0:
+            day = 'Sun'
+        elif week_day == 1:
+            day = 'Mon'
+        elif week_day == 2:
+            day = 'Tue'
+        elif week_day == 3:
+            day = 'Wed'
+        elif week_day == 4:
+            day = 'Thu'
+        elif week_day == 5:
+            day = 'Fri'
+        elif week_day == 6:
+            day = 'Sat'
+        else:
+            day = ''
 
-    day_time = day + ", " + time
+        date_time = new_r['datetime']
+        m_time = date_time[11:16]
+        time = datetime.strptime(m_time,"%H:%M").strftime("%I:%M %p")
+
+        day_time = day + ", " + time
+    except:
+        day_time = ''
+    
 
     # Generate different wallpaper for different weather
     if weather == 'Clear':
