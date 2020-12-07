@@ -1,4 +1,4 @@
-# Final Project
+# Smart Weather App
 
 It is a weather app that recommends you what to wear based on the weather.
 A user can start using the app without any login.
