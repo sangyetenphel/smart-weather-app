@@ -26,6 +26,9 @@ SECRET_KEY = 'n-(5)o%s!4oh3m9_##(m*z3n-(f4(m3cghu^8buq8y4nx#(g6i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Free key from https://openweathermap.org/api, set as an environment variable
+OPENWEATHER_API_KEY = os.environ.get('OPENWEATHER_API_KEY', '')
+
 ALLOWED_HOSTS = []
 
 

@@ -50,10 +50,26 @@ The pinned package versions date from 2020, so use **Python 3.8**.
 python3.8 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
+`psycopg2` is compiled during install, so it needs the PostgreSQL client headers. If the install fails with `libpq-fe.h: No such file`, install them first with `brew install libpq` on macOS or `sudo apt install libpq-dev` on Ubuntu/Debian.
+
+Get a free API key at [openweathermap.org](https://openweathermap.org/api), then start the server with it:
+
+```bash
+export OPENWEATHER_API_KEY=your_api_key
 python manage.py runserver
 ```
 
-Then open http://127.0.0.1:8000. The app needs an internet connection, since the weather and time data come from the OpenWeather API and the WorldTimeAPI. To use your own OpenWeather API key, get a free one at [openweathermap.org](https://openweathermap.org/api) and replace the `appid` value in `smart_weather/views.py`.
+Then open http://127.0.0.1:8000. The app needs an internet connection, since the weather and time data come from the OpenWeather API and the WorldTimeAPI. Without a key, or if OpenWeather can't find a city, the app shows a message on the search page instead of an error.
+
+### Running the tests
+
+```bash
+python manage.py test smart_weather
+```
+
+The tests simulate the weather APIs, so they don't need a key or an internet connection. They cover the weather page, every outfit temperature band (including exactly 80°F), and the error messages.
 
 ## Built with
 
