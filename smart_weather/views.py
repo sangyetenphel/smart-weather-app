@@ -1,4 +1,5 @@
 import requests
+from django.conf import settings
 from django.shortcuts import render
 from datetime import datetime
 from timezonefinder import TimezoneFinder
@@ -8,16 +9,36 @@ def index(request):
     return render(request, 'smart_weather/index.html')
 
 
+def render_error(request, message, status):
+    """Show the city search page again with a friendly error message."""
+    return render(request, 'smart_weather/index.html', {'error': message}, status=status)
+
+
 def weather(request, city_id):
 
-    url = 'https://api.openweathermap.org/data/2.5/weather?id={}&units=imperial&appid=8650b978cd17f0a0eb65c73e957bf584'
+    api_key = settings.OPENWEATHER_API_KEY
+    if not api_key:
+        return render_error(request, "The weather service isn't set up yet (OPENWEATHER_API_KEY is missing).", 500)
 
-    r = requests.get(url.format(city_id)).json()
+    url = 'https://api.openweathermap.org/data/2.5/weather'
+    params = {'id': city_id, 'units': 'imperial', 'appid': api_key}
+
+    try:
+        response = requests.get(url, params=params, timeout=10)
+    except requests.RequestException:
+        return render_error(request, "Couldn't reach the weather service. Please try again in a moment.", 502)
+
+    if response.status_code == 404:
+        return render_error(request, "We couldn't find that city. Please choose another one.", 404)
+    if response.status_code != 200:
+        return render_error(request, "Couldn't load the weather right now. Please try again in a moment.", 502)
+
+    r = response.json()
 
     temperature = r['main']['temp']
     weather = r['weather'][0]['main']
 
-    lon = lat = r['coord']['lon']
+    lon = r['coord']['lon']
     lat = r['coord']['lat']
 
     tf = TimezoneFinder()
@@ -27,7 +48,7 @@ def weather(request, city_id):
     time_zone_url = 'http://worldtimeapi.org/api/timezone/{}'
 
     try:
-        new_r = requests.get(time_zone_url.format(time_zone)).json()
+        new_r = requests.get(time_zone_url.format(time_zone), timeout=10).json()
         week_day = new_r['day_of_week']
 
         if week_day == 0:
@@ -94,7 +115,7 @@ def weather(request, city_id):
         outfit = "60"
     elif temperature < 80:
         outfit = "70"
-    elif temperature > 80 :
+    else:
         outfit = "80"
 
     context = {"city_weather": city_weather, "outfit": outfit, "weather": weather}
